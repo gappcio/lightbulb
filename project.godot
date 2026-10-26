@@ -33,6 +33,13 @@ folder_colors={
 "res://Assets/Objects/": "orange"
 }
 
+[layer_names]
+
+3d_physics/layer_1="player"
+3d_physics/layer_2="wall"
+3d_physics/layer_3="enemy"
+3d_physics/layer_4="item"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

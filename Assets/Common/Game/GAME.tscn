@@ -1,7 +1,17 @@
 [gd_scene format=3 uid="uid://dcv6dsek82rmf"]
 
+[ext_resource type="PackedScene" uid="uid://bq00wjhq3ifao" path="res://Assets/Objects/Player/Player.tscn" id="1_a5rb1"]
+[ext_resource type="PackedScene" uid="uid://ngk5hroa1mh0" path="res://Assets/Levels/Devroom.tscn" id="1_bgjeo"]
+[ext_resource type="Script" uid="uid://d2ps7328jdcyw" path="res://Assets/Common/Game/GAME.gd" id="1_l7kg6"]
+
 [node name="Game" type="Node3D" unique_id=286240580]
+script = ExtResource("1_l7kg6")
 
 [node name="PLAYER_CONTAINER" type="Node3D" parent="." unique_id=2128002952]
 
+[node name="Player" parent="PLAYER_CONTAINER" unique_id=877937196 instance=ExtResource("1_a5rb1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
 [node name="LEVEL_CONTAINER" type="Node3D" parent="." unique_id=1799564044]
+
+[node name="Devroom" parent="LEVEL_CONTAINER" unique_id=1131316022 instance=ExtResource("1_bgjeo")]
