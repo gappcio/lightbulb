@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dsrdn4l24lr6a"]
+
+[ext_resource type="Script" uid="uid://cedbneiqybrln" path="res://Assets/Common/Camera/Camera.gd" id="1_lq3ca"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_4x3p3"]
+
+[node name="Camera" type="Camera3D" unique_id=1996614083]
+script = ExtResource("1_lq3ca")
+
+[node name="PhantomCameraHost" type="Node" parent="." unique_id=1386550098]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_4x3p3")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
