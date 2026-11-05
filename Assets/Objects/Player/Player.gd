@@ -10,9 +10,10 @@ var key_jump
 var state: PhysicsDirectBodyState3D
 var max_speed: float = 6.0
 var acceleration: float = 5.0
-
+var mouse_sensitivity := 0.15
 
 @onready var phantom_camera_3d: PhantomCamera3D = $PhantomCamera3D
+
 
 func _ready() -> void:
 	pass
@@ -20,6 +21,30 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pass
+
+
+func _unhandled_input(event) -> void:
+  # Trigger whenever the mouse moves.
+	if event is InputEventMouseMotion:
+		var pcam_rotation_degrees: Vector3
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Assigns the current 3D rotation of the SpringArm3D node - to start off where it is in the editor.
+		pcam_rotation_degrees = phantom_camera_3d.get_third_person_rotation_degrees()
+
+	# Change the X rotation.
+		pcam_rotation_degrees.x -= event.relative.y * mouse_sensitivity
+		
+	# Clamp the rotation in the X axis so it can go over or under the target.
+		pcam_rotation_degrees.x = clampf(pcam_rotation_degrees.x, -80.0, 80.0)
+
+	# Change the Y rotation value.
+		pcam_rotation_degrees.y -= event.relative.x * mouse_sensitivity
+		
+	# Sets the rotation to fully loop around its target, but without going below or exceeding 0 and 360 degrees respectively.
+		pcam_rotation_degrees.y = wrapf(pcam_rotation_degrees.y, 0.0, 360.0)
+		
+	# Change the SpringArm3D node's rotation and rotate around its target.
+		phantom_camera_3d.set_third_person_rotation_degrees(pcam_rotation_degrees)
 
 
 func _physics_process(delta: float) -> void:
@@ -32,6 +57,7 @@ func _physics_process(delta: float) -> void:
 	var input := Vector3.ZERO
 	input.x = Input.get_axis("left", "right")
 	input.z = Input.get_axis("forward", "backward")
+	input = input.rotated(Vector3.UP, phantom_camera_3d.get_third_person_rotation().y)
 	input = input.normalized()
 	
 	apply_central_force(input * acceleration * mass)
@@ -45,13 +71,8 @@ func _physics_process(delta: float) -> void:
 	
 	apply_torque(Vector3(input.z, 0, -input.x) * 3.0)
 	
-	if key_jump:
-		apply_impulse(Vector3(0.0, 10.0, 0.0))
-	
-	#print(is_on_floor())
-	
-	#apply_central_force(dir)
-	#apply_impulse(dir)
+	if key_jump and is_on_floor():
+		apply_impulse(Vector3(0.0, 20.0, 0.0))
 
 
 func _integrate_forces(_state: PhysicsDirectBodyState3D) -> void:

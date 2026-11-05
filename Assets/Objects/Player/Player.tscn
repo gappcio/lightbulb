@@ -57,6 +57,11 @@ mesh = SubResource("SphereMesh_kx2ph")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
 mesh = SubResource("CylinderMesh_0dg5q")
 
+[node name="Camera" parent="." unique_id=1717905545 instance=ExtResource("2_sobfh")]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 0.9563048, 0.2923717, 0, -0.2923717, 0.9563048, 0, 1.6953549, 4.155144)
+top_level = true
+
 [node name="PhantomCamera3D" type="Node3D" parent="." unique_id=1902485217 node_paths=PackedStringArray("follow_target")]
 transform = Transform3D(1, 0, 0, 0, 0.9563048, 0.2923717, 0, -0.2923717, 0.9563048, 0, 1.6953549, 4.155144)
 script = ExtResource("2_2g33m")
@@ -75,8 +80,3 @@ align_position_with_view = Callable()
 align_rotation_with_view = Callable()
 draw_follow_line = true
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
-
-[node name="Camera" parent="." unique_id=1717905545 instance=ExtResource("2_sobfh")]
-physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.9563048, 0.2923717, 0, -0.2923717, 0.9563048, 0, 1.6953549, 4.155144)
-top_level = true
