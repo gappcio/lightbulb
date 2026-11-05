@@ -5,12 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://dsrdn4l24lr6a" path="res://Assets/Common/Camera/Camera.tscn" id="2_sobfh"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_u2wvo"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2g33m"]
-friction = 0.88
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sc0tq"]
+friction = 0.63
+bounce = 0.12
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kx2ph"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u2wvo"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_kx2ph"]
 height = 0.54418945
@@ -29,29 +28,23 @@ script = ExtResource("3_u2wvo")
 [node name="Bulb" type="RigidBody3D" unique_id=354497070]
 collision_mask = 2
 mass = 4.0
-physics_material_override = SubResource("PhysicsMaterial_2g33m")
+physics_material_override = SubResource("PhysicsMaterial_sc0tq")
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.04, 0)
+can_sleep = false
+continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 8
+linear_damp = 0.16
+angular_damp = 0.11
 script = ExtResource("1_uro77")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1181749807]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_kx2ph")
 
-[node name="PinJoint3D" type="Generic6DOFJoint3D" parent="." unique_id=782212388]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.066976696, 0)
-node_a = NodePath("..")
-node_b = NodePath("../Stem")
-
-[node name="Stem" type="RigidBody3D" parent="." unique_id=1857978403]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.228, 0)
-collision_mask = 2
-mass = 6.0
-physics_material_override = SubResource("PhysicsMaterial_u2wvo")
-contact_monitor = true
-max_contacts_reported = 8
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Stem" unique_id=1299102470]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1299102470]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22799999, 0)
 shape = SubResource("CylinderShape3D_kx2ph")
 
 [node name="Mesh" type="Node3D" parent="." unique_id=431685385]
@@ -87,5 +80,3 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 0.9563048, 0.2923717, 0, -0.2923717, 0.9563048, 0, 1.6953549, 4.155144)
 top_level = true
-
-[node name="Node3D" type="Node3D" parent="." unique_id=401798066]

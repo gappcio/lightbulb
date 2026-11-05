@@ -7,11 +7,12 @@ var key_right
 var key_up
 var key_down
 var key_jump
-var state_bulb: PhysicsDirectBodyState3D
-var state_stem: PhysicsDirectBodyState3D
+var state: PhysicsDirectBodyState3D
+var max_speed: float = 6.0
+var acceleration: float = 5.0
+
 
 @onready var phantom_camera_3d: PhantomCamera3D = $PhantomCamera3D
-@onready var stem: RigidBody3D = $Stem
 
 func _ready() -> void:
 	pass
@@ -28,30 +29,41 @@ func _physics_process(delta: float) -> void:
 	key_down = Input.is_action_pressed("backward")
 	key_jump = Input.is_action_just_pressed("jump")
 	
-	var dir : Vector3 = Vector3.ZERO
-	dir.x = int(key_right) - int(key_left)
-	dir.z = int(key_down) - int(key_up)
-	dir = dir.rotated(Vector3.UP, phantom_camera_3d.rotation.y)
+	var input := Vector3.ZERO
+	input.x = Input.get_axis("left", "right")
+	input.z = Input.get_axis("forward", "backward")
+	input = input.normalized()
+	
+	apply_central_force(input * acceleration * mass)
+	
+	var horizontal_velocity = Vector3(linear_velocity.x, 0, linear_velocity.z)
+	
+	if horizontal_velocity.length() > max_speed:
+		horizontal_velocity = horizontal_velocity.normalized() * max_speed
+		linear_velocity.x = horizontal_velocity.x
+		linear_velocity.z = horizontal_velocity.z
+	
+	apply_torque(Vector3(input.z, 0, -input.x) * 3.0)
 	
 	if key_jump:
 		apply_impulse(Vector3(0.0, 10.0, 0.0))
 	
-	print(is_on_floor())
+	#print(is_on_floor())
 	
 	#apply_central_force(dir)
-	apply_impulse(dir)
+	#apply_impulse(dir)
 
 
 func _integrate_forces(_state: PhysicsDirectBodyState3D) -> void:
-	state_bulb = _state
+	state = _state
 
 
 func is_on_floor() -> bool:
 	var on_floor: bool = false
 	var i := 0
-	if state_bulb:
-		while i < state_bulb.get_contact_count():
-			var normal := state_bulb.get_contact_local_normal(i)
+	if state:
+		while i < state.get_contact_count():
+			var normal := state.get_contact_local_normal(i)
 			on_floor = normal.dot(Vector3.UP) > 0.99
 			i += 1
 	return on_floor
