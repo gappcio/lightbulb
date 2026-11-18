@@ -3,9 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://bq00wjhq3ifao" path="res://Assets/Objects/Player/Player.tscn" id="1_a5rb1"]
 [ext_resource type="PackedScene" uid="uid://ngk5hroa1mh0" path="res://Assets/Levels/Devroom.tscn" id="1_bgjeo"]
 [ext_resource type="Script" uid="uid://d2ps7328jdcyw" path="res://Assets/Common/Game/GAME.gd" id="1_l7kg6"]
+[ext_resource type="PackedScene" uid="uid://br7b7wn46di5e" path="res://Assets/Common/UI/UI.tscn" id="2_kjgy6"]
 
 [node name="Game" type="Node3D" unique_id=286240580]
 script = ExtResource("1_l7kg6")
+
+[node name="Ui" parent="." unique_id=1553523753 instance=ExtResource("2_kjgy6")]
 
 [node name="PLAYER_CONTAINER" type="Node3D" parent="." unique_id=2128002952]
 

@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://ngk5hroa1mh0"]
 
+[ext_resource type="Script" uid="uid://dyk12edmimxtp" path="res://Assets/Common/Wall/Wall.gd" id="1_te44k"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sa2nb"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -69,6 +71,7 @@ shadow_enabled = true
 [node name="Walls" type="StaticBody3D" parent="." unique_id=1402646212]
 collision_layer = 2
 collision_mask = 13
+script = ExtResource("1_te44k")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Walls" unique_id=585855739]
 mesh = SubResource("PlaneMesh_kx2ph")

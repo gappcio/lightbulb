@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://clr45rgflly1k"
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
+UIMANAGER="*uid://br7b7wn46di5e"
 
 [display]
 

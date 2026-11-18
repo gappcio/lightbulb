@@ -2,6 +2,10 @@ extends RigidBody3D
 class_name Player
 
 
+@export var health: float = 100.0
+@export var max_health: float = 100.0
+
+
 var key_left
 var key_right
 var key_up
@@ -11,6 +15,23 @@ var state: PhysicsDirectBodyState3D
 var max_speed: float = 6.0
 var acceleration: float = 5.0
 var mouse_sensitivity := 0.15
+var condition: BULB_CONDITION
+
+
+var fall_vector: Vector3 = Vector3.ZERO
+var collision_damage_threshold: float = 22.0
+var collision_damage_cooldown: float = 0.5
+
+var collision_damage_timer: float = 0.0
+
+
+enum BULB_CONDITION {
+	normal,
+	cracked,
+	almost_broken,
+	broken, # dead state
+}
+
 
 @onready var phantom_camera_3d: PhantomCamera3D = $PhantomCamera3D
 
@@ -20,7 +41,20 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	pass
+	
+	if health <= 0.0:
+		die()
+	
+	health = clamp(health, 0.0, max_health)
+	
+	if health > max_health * 0.66:
+		condition = BULB_CONDITION.normal
+	elif health > max_health * 0.33:
+		condition = BULB_CONDITION.cracked
+	elif health > 0.0:
+		condition = BULB_CONDITION.almost_broken
+	else:
+		condition = BULB_CONDITION.broken
 
 
 func _unhandled_input(event) -> void:
@@ -60,6 +94,9 @@ func _physics_process(delta: float) -> void:
 	input = input.rotated(Vector3.UP, phantom_camera_3d.get_third_person_rotation().y)
 	input = input.normalized()
 	
+	if condition == BULB_CONDITION.broken:
+		input = Vector3.ZERO
+	
 	apply_central_force(input * acceleration * mass)
 	
 	var horizontal_velocity = Vector3(linear_velocity.x, 0, linear_velocity.z)
@@ -78,6 +115,21 @@ func _physics_process(delta: float) -> void:
 func _integrate_forces(_state: PhysicsDirectBodyState3D) -> void:
 	state = _state
 
+	if collision_damage_timer > 0.0:
+		collision_damage_timer -= _state.step
+
+	var impact: float = 0.0
+
+	for i in range(_state.get_contact_count()):
+		var impulse := _state.get_contact_impulse(i)
+		var impact_strength := Vector3(impulse.x * 2.0, impulse.y * 0.75, impulse.z * 2.0).length()
+		impact = maxf(impact, impact_strength)
+	
+	if impact > collision_damage_threshold and collision_damage_timer <= 0.0:
+		var damage := (impact - collision_damage_threshold)
+		take_damage(damage * 2.0)
+		collision_damage_timer = collision_damage_cooldown
+
 
 func is_on_floor() -> bool:
 	var on_floor: bool = false
@@ -88,3 +140,14 @@ func is_on_floor() -> bool:
 			on_floor = normal.dot(Vector3.UP) > 0.99
 			i += 1
 	return on_floor
+
+
+func die() -> void:
+	queue_free()
+	
+
+
+func take_damage(damage: float) -> void:
+	health -= damage
+	UIMANAGER.show_damage_overlay()
+	UIMANAGER.set_health(health)

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cy3ugiri33a0x"]
+
+[ext_resource type="Script" uid="uid://d3qt1njo8r6ev" path="res://Assets/Objects/Player/Checkpoint.gd" id="1_vmfbr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kx2ph"]
+size = Vector3(1, 1.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dg5q"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.23137255)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kx2ph"]
+size = Vector3(1, 1.5, 1)
+
+[node name="Checkpoint" type="StaticBody3D" unique_id=1842449638]
+script = ExtResource("1_vmfbr")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1484255913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27488708, 0)
+mesh = SubResource("BoxMesh_kx2ph")
+surface_material_override/0 = SubResource("StandardMaterial3D_0dg5q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1749576823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28121084, 0)
+shape = SubResource("BoxShape3D_kx2ph")

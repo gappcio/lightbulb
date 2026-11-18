@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://br7b7wn46di5e"]
+
+[ext_resource type="Script" uid="uid://5q282i22woua" path="res://Assets/Common/UI/UI.gd" id="1_h2w0h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kx2ph"]
+bg_color = Color(0.34117648, 0, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dg5q"]
+bg_color = Color(0.63529414, 0, 0.1882353, 0.1882353)
+
+[node name="Ui" type="Control" unique_id=1553523753]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h2w0h")
+
+[node name="DamageScreen" type="ColorRect" parent="." unique_id=1282498621]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0)
+
+[node name="PlayerHealth" type="ProgressBar" parent="." unique_id=426952816]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.028
+anchor_top = 0.95500004
+anchor_right = 0.028
+anchor_bottom = 0.95500004
+offset_left = -0.25600052
+offset_top = -26.840027
+offset_right = 199.744
+offset_bottom = 0.15997314
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_kx2ph")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0dg5q")
+step = 1.0
+value = 100.0
+show_percentage = false
