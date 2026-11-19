@@ -1,25 +1,31 @@
 [gd_scene format=3 uid="uid://cy3ugiri33a0x"]
 
 [ext_resource type="Script" uid="uid://d3qt1njo8r6ev" path="res://Assets/Objects/Player/Checkpoint.gd" id="1_vmfbr"]
+[ext_resource type="Material" uid="uid://duq2wuscxh6uv" path="res://Assets/Objects/Player/Materials/MAT_checkpoint_disabled.tres" id="2_rpglg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2g33m"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_kx2ph"]
-size = Vector3(1, 1.6, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dg5q"]
-transparency = 1
-albedo_color = Color(1, 0, 0, 0.23137255)
+material = SubResource("StandardMaterial3D_2g33m")
+size = Vector3(2.1, 2.4, 2.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kx2ph"]
-size = Vector3(1, 1.5, 1)
+size = Vector3(2.1, 2.4, 2.2)
 
 [node name="Checkpoint" type="StaticBody3D" unique_id=1842449638]
 script = ExtResource("1_vmfbr")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1484255913]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27488708, 0)
 mesh = SubResource("BoxMesh_kx2ph")
-surface_material_override/0 = SubResource("StandardMaterial3D_0dg5q")
+surface_material_override/0 = ExtResource("2_rpglg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1749576823]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28121084, 0)
 shape = SubResource("BoxShape3D_kx2ph")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1197972223]
+collision_layer = 8
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=523015717]
+shape = SubResource("BoxShape3D_kx2ph")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

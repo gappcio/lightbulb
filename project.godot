@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://clr45rgflly1k"
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
 UIMANAGER="*uid://br7b7wn46di5e"
+GLOBAL="*uid://dvthe2mfwam04"
 
 [display]
 
@@ -46,6 +47,10 @@ folder_colors={
 "res://Assets/Objects/": "orange",
 "res://Assets/Objects/Player/": "red"
 }
+
+[global_group]
+
+checkpoints=""
 
 [input]
 

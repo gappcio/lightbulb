@@ -40,7 +40,7 @@ func _ready() -> void:
 	pass
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if health <= 0.0:
 		die()
@@ -94,8 +94,8 @@ func _physics_process(delta: float) -> void:
 	input = input.rotated(Vector3.UP, phantom_camera_3d.get_third_person_rotation().y)
 	input = input.normalized()
 	
-	if condition == BULB_CONDITION.broken:
-		input = Vector3.ZERO
+	#if condition == BULB_CONDITION.broken:
+		#input = Vector3.ZERO
 	
 	apply_central_force(input * acceleration * mass)
 	
@@ -119,8 +119,14 @@ func _integrate_forces(_state: PhysicsDirectBodyState3D) -> void:
 		collision_damage_timer -= _state.step
 
 	var impact: float = 0.0
-
+	
 	for i in range(_state.get_contact_count()):
+		
+		var collider = _state.get_contact_collider_object(i)
+		
+		if not collider is Wall:
+			continue
+		
 		var impulse := _state.get_contact_impulse(i)
 		var impact_strength := Vector3(impulse.x * 2.0, impulse.y * 0.75, impulse.z * 2.0).length()
 		impact = maxf(impact, impact_strength)
@@ -143,8 +149,26 @@ func is_on_floor() -> bool:
 
 
 func die() -> void:
-	queue_free()
 	
+	# spawn dead player
+	
+	#TODO NEED MODEL
+	
+	# spawn shards
+	
+	#TODO NEED MODEL
+	
+	# move player to checkpoint
+	
+	var active_checkpoint: Checkpoint
+	for node in GLOBAL.game.checkpoint_list:
+		if node.active:
+			active_checkpoint = node
+	
+	global_position = active_checkpoint.global_position
+	
+	
+	health = 1.00 #TODO what happens after death
 
 
 func take_damage(damage: float) -> void:

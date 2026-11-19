@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://ngk5hroa1mh0"]
 
 [ext_resource type="Script" uid="uid://dyk12edmimxtp" path="res://Assets/Common/Wall/Wall.gd" id="1_te44k"]
+[ext_resource type="PackedScene" uid="uid://dixwquydol8kf" path="res://Assets/Objects/Player/CheckpointGroup.tscn" id="2_2xgqf"]
+[ext_resource type="PackedScene" uid="uid://cy3ugiri33a0x" path="res://Assets/Objects/Player/Checkpoint.tscn" id="3_dnr7e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sa2nb"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -150,3 +152,14 @@ mesh = SubResource("BoxMesh_0dg5q")
 [node name="CollisionShape3D10" type="CollisionShape3D" parent="Walls" unique_id=1281311417]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4, 0.5, -1.5)
 shape = SubResource("ConcavePolygonShape3D_l3tut")
+
+[node name="CheckpointGroup" parent="." unique_id=262829661 instance=ExtResource("2_2xgqf")]
+
+[node name="Checkpoint" parent="CheckpointGroup" unique_id=1842449638 instance=ExtResource("3_dnr7e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.223879, 1.2, 3.555176)
+
+[node name="Checkpoint2" parent="CheckpointGroup" unique_id=827987305 instance=ExtResource("3_dnr7e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.977358, 1.2000005, -2.923911)
+
+[node name="Checkpoint3" parent="CheckpointGroup" unique_id=2028204257 instance=ExtResource("3_dnr7e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.336057, 1.2, 0.521495)
