@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ylfp74xpvwov"]
+
+[resource]
+resource_name = "glass.002"
+transparency = 4
+albedo_color = Color(0.90588236, 0.90588236, 0.90588236, 0.4862745)
+metallic = 0.17
+metallic_specular = 0.62
+roughness = 0.19
+rim_enabled = true
+rim = 0.21
+refraction_scale = 0.24
+refraction_texture_channel = 1

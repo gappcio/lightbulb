@@ -3,17 +3,26 @@
 [ext_resource type="Script" uid="uid://biei56gfmil81" path="res://Assets/Objects/Player/Player.gd" id="1_uro77"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_2g33m"]
 [ext_resource type="PackedScene" uid="uid://dsrdn4l24lr6a" path="res://Assets/Common/Camera/Camera.tscn" id="2_sobfh"]
+[ext_resource type="PackedScene" uid="uid://c3hi3l433petk" path="res://Assets/Models/Lightbulb/Lightbulb.glb" id="2_u2wvo"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_u2wvo"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sc0tq"]
-friction = 0.63
-bounce = 0.12
+friction = 0.32
+bounce = 0.37
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kx2ph"]
+radius = 0.4494186
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_kx2ph"]
-height = 0.54418945
-radius = 0.2
+[sub_resource type="SphereShape3D" id="SphereShape3D_u2wvo"]
+radius = 0.34402436
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_22cvf"]
+radius = 0.2055664
+height = 0.7415161
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bymdl"]
+radius = 0.27687263
+height = 0.61573124
 
 [sub_resource type="SphereMesh" id="SphereMesh_kx2ph"]
 
@@ -40,21 +49,34 @@ angular_damp = 0.11
 script = ExtResource("1_uro77")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1181749807]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.654, 0)
 shape = SubResource("SphereShape3D_kx2ph")
 
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=493910668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38829935, 0)
+shape = SubResource("SphereShape3D_u2wvo")
+
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1299102470]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22799999, 0)
-shape = SubResource("CylinderShape3D_kx2ph")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11770946, 0)
+shape = SubResource("CapsuleShape3D_22cvf")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=558526588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25456685, 0)
+shape = SubResource("CapsuleShape3D_bymdl")
 
 [node name="Mesh" type="Node3D" parent="." unique_id=431685385]
 
+[node name="Lightbulb" parent="Mesh" unique_id=876146469 instance=ExtResource("2_u2wvo")]
+transform = Transform3D(1.375, 0, 0, 0, 1.375, 0, 0, 0, 1.375, 0, -0.48384154, 0)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh" unique_id=1002489826]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
 mesh = SubResource("SphereMesh_kx2ph")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh" unique_id=1379669468]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+visible = false
 mesh = SubResource("CylinderMesh_0dg5q")
 
 [node name="Camera" parent="." unique_id=1717905545 instance=ExtResource("2_sobfh")]
@@ -83,3 +105,6 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="MarkerBulbCenter" type="Marker3D" parent="." unique_id=837166222]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="MarkerMassCenter" type="Marker3D" parent="." unique_id=237828527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15640357, 0)

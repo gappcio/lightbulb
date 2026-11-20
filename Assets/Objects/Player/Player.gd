@@ -6,6 +6,7 @@ class_name Player
 @export var max_health: float = 100.0
 
 
+
 var key_left
 var key_right
 var key_up
@@ -34,10 +35,11 @@ enum BULB_CONDITION {
 
 
 @onready var phantom_camera_3d: PhantomCamera3D = $PhantomCamera3D
+@onready var marker_mass_center: Marker3D = $MarkerMassCenter
 
 
 func _ready() -> void:
-	pass
+	center_of_mass = marker_mass_center.position
 
 
 func _process(_delta: float) -> void:

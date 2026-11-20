@@ -44,6 +44,7 @@ folder_colors={
 "res://Assets/Audio/": "blue",
 "res://Assets/Common/": "red",
 "res://Assets/Levels/": "blue",
+"res://Assets/Models/": "green",
 "res://Assets/Objects/": "orange",
 "res://Assets/Objects/Player/": "red"
 }
