@@ -17,6 +17,7 @@ var max_speed: float = 6.0
 var acceleration: float = 5.0
 var mouse_sensitivity := 0.15
 var condition: BULB_CONDITION
+var dead: bool = false
 
 
 var fall_vector: Vector3 = Vector3.ZERO
@@ -25,6 +26,8 @@ var collision_damage_cooldown: float = 0.5
 
 var collision_damage_timer: float = 0.0
 
+var death_timer: float = 2.0
+var death_timer_max: float = 2.0
 
 enum BULB_CONDITION {
 	normal,
@@ -42,9 +45,9 @@ func _ready() -> void:
 	center_of_mass = marker_mass_center.position
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	
-	if health <= 0.0:
+	if health <= 0.0 and not dead:
 		die()
 	
 	health = clamp(health, 0.0, max_health)
@@ -57,6 +60,7 @@ func _process(_delta: float) -> void:
 		condition = BULB_CONDITION.almost_broken
 	else:
 		condition = BULB_CONDITION.broken
+	
 
 
 func _unhandled_input(event) -> void:
@@ -110,16 +114,19 @@ func _physics_process(delta: float) -> void:
 	
 	apply_torque(Vector3(input.z, 0, -input.x) * 3.0)
 	
+	if Input.is_action_just_pressed("special") and not dead:
+		die()
+	
 	if key_jump and is_on_floor():
 		apply_impulse(Vector3(0.0, 20.0, 0.0))
 
 
 func _integrate_forces(_state: PhysicsDirectBodyState3D) -> void:
 	state = _state
-
+	
 	if collision_damage_timer > 0.0:
 		collision_damage_timer -= _state.step
-
+	
 	var impact: float = 0.0
 	
 	for i in range(_state.get_contact_count()):
@@ -151,14 +158,12 @@ func is_on_floor() -> bool:
 
 
 func die() -> void:
-	
+	dead = true
+	#Engine.time_scale = 0.2
 	# spawn dead player
 	
-	#TODO NEED MODEL
-	
-	# spawn shards
-	
-	#TODO NEED MODEL
+	var player_dead = GLOBAL.game.player_dead
+	player_dead.explode(global_transform)
 	
 	# move player to checkpoint
 	
@@ -167,10 +172,16 @@ func die() -> void:
 		if node.active:
 			active_checkpoint = node
 	
+	visible = false
+	freeze = true
+	await get_tree().create_timer(5.0).timeout
+	freeze = false
+	visible = true
 	global_position = active_checkpoint.global_position
 	
 	
 	health = 1.00 #TODO what happens after death
+	dead = false
 
 
 func take_damage(damage: float) -> void:

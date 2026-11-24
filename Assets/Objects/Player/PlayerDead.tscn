@@ -1,3 +1,30 @@
 [gd_scene format=3 uid="uid://cr4hlvaxgld5v"]
 
+[ext_resource type="Script" uid="uid://8kwlptiledlh" path="res://Assets/Objects/Player/PlayerDead.gd" id="1_f2u4a"]
+[ext_resource type="ArrayMesh" uid="uid://de5fx0gdm1bsp" path="res://Assets/Models/Lightbulb/lightbulb_mesh.tres" id="1_niktc"]
+[ext_resource type="Script" uid="uid://bmmfe6fmycpxr" path="res://addons/smash_the_mesh/stm_instance.gd" id="2_f2u4a"]
+[ext_resource type="ArrayMesh" uid="uid://tppgw3q255ye" path="res://addons/smash_the_mesh/brushes/stm_brush_rock.mesh" id="4_1qukm"]
+[ext_resource type="Material" uid="uid://ylfp74xpvwov" path="res://Assets/Models/Lightbulb/Materials/glass.002.tres" id="5_nrmhw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1qukm"]
+friction = 0.95
+bounce = 0.15
+
 [node name="PlayerDead" type="Node3D" unique_id=1738951813]
+script = ExtResource("1_f2u4a")
+
+[node name="STMInstance3D" type="MeshInstance3D" parent="." unique_id=458967523]
+transform = Transform3D(1.355, 0, 0, 0, 1.355, 0, 0, 0, 1.355, 0, 0.12673688, 0)
+mesh = ExtResource("1_niktc")
+script = ExtResource("2_f2u4a")
+original_mesh = ExtResource("1_niktc")
+chunk_brush = ExtResource("4_1qukm")
+chunk_inner_material = ExtResource("5_nrmhw")
+chunk_count = Vector3i(6, 6, 6)
+chunk_vertices_threshold = 10
+chunk_noise_factor = Vector3(0.395, 0.455, 0)
+phys_shape = 4
+phys_material = SubResource("PhysicsMaterial_1qukm")
+phys_collision_layer = 16
+phys_mask_layer = 2
+metadata/_custom_type_script = "uid://bmmfe6fmycpxr"

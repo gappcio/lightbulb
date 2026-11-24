@@ -163,3 +163,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.977358, 1.2000005, -2.9239
 
 [node name="Checkpoint3" parent="CheckpointGroup" unique_id=2028204257 instance=ExtResource("3_dnr7e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.336057, 1.2, 0.521495)
+active = true
